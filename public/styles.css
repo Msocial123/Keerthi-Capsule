@@ -1,0 +1,46 @@
+body {
+    background-image: url('images/OIP\ \(2\).jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    
+    font-family:serif;
+    height:100vh;
+    margin:0;
+    padding:0;
+
+}
+
+form {
+    margin-left: 30%;
+}
+
+h2 {
+    text-align: center;
+    color: whitesmoke;
+}
+
+label {
+    
+    display: block;
+    margin-bottom: 8px;
+    margin-right: 35%;
+    color: whitesmoke;
+}
+
+input,select,button {
+    width:60%;
+    padding:10px;
+    margin-bottom:20px;
+    border:1px;
+    border-radius: 4px;
+}
+
+button {
+    border:none;
+    cursor:pointer;
+}
+
+button{
+    background-color: #4cae4c;
+}

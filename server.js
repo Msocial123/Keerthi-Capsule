@@ -12,16 +12,13 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Connect to MongoDB
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/eventDB';
-
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+const mongoURI = process.env.MONGODB_URI || 'mongodb://mongo:27017/eventDB';
+mongoose
+  .connect(mongoURI)
   .then(() => {
-    console.log('MongoDB connected');
+    console.log('Successfully connected to MongoDB');
   })
-  .catch(err => {
+  .catch((err) => {
     console.error('Error connecting to MongoDB:', err);
   });
 
@@ -196,7 +193,7 @@ app.post('/', async (req, res) => {
 
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3003;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

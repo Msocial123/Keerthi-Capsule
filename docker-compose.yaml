@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: eventapp
+    ports:
+      - "3003:3003"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/eventDB
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: eventorganizer
+    environment:
+      MONGO_INITDB_DATABASE: eventDB
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:

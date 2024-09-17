@@ -1,13 +1,12 @@
----
 apiVersion: v1
 kind: Service
 metadata:
-  name: node-svc-keerthi
+  name: node-svc-event
 spec:
   selector:
-    app: node-app-deployment
+    app: node-app-deployemnt
   ports:
-  - port: 3001          # External port to expose the Node.js app
-    targetPort: 3003     # The port exposed in the container (as per your deployment)
-    protocol: TCP
-  type: LoadBalancer     # To expose the service externally
+  - protocol: TCP
+    port: 80
+    targetPort: 3003
+  type: LoadBalancer

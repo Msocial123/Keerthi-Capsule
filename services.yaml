@@ -5,7 +5,7 @@ metadata:
   name: node-svc
 spec:
   selector:
-    app: myapp
+    app: myapp-node-app
   ports:
   - port: 3001          # External port to expose the Node.js app
     targetPort: 3003     # The port exposed in the container (as per your deployment)

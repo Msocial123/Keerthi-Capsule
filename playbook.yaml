@@ -1,0 +1,67 @@
+---
+- name: Deploy Node.js Application and MongoDB
+  hosts: all
+  become: true
+  vars:
+    project_dir: /opt/myproject
+    docker_image_name: keerthid20/event:latest
+    mongodb_port: 27017
+    nodejs_port: 3003
+    kubernetes_namespace: default
+ 
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+ 
+    - name: Install required packages
+      apt:
+        name:
+          - docker.io
+          - docker-compose
+        state: present
+ 
+    - name: Create project directory
+      file:
+        path: "{{ project_dir }}"
+        state: directory
+ 
+    - name: Copy Dockerfile
+      copy:
+        src: Dockerfile
+        dest: "{{ project_dir }}/Dockerfile"
+ 
+    - name: Copy docker-compose.yml
+      copy:
+        src: docker-compose.yml
+        dest: "{{ project_dir }}/docker-compose.yml"
+ 
+    - name: Copy .env file
+      copy:
+        src: .env
+        dest: "{{ project_dir }}/.env"
+ 
+    - name: Build and start Docker containers
+      docker_compose:
+        project_src: "{{ project_dir }}"
+        state: present
+ 
+    - name: Ensure Kubernetes is installed
+      shell: |
+        kubectl version --client --short
+      register: kubectl_version
+      failed_when: "'Client Version' not in kubectl_version.stdout"
+ 
+    - name: Apply Kubernetes Deployment
+      kubectl:
+        kubeconfig: /etc/kubernetes/admin.conf
+        state: present
+        src: deploymentmanifest.yml
+        namespace: "{{ kubernetes_namespace }}"
+ 
+    - name: Apply Kubernetes Service
+      kubectl:
+        kubeconfig: /etc/kubernetes/admin.conf
+        state: present
+        src: service.yml
+        namespace: "{{ kubernetes_namespace }}"

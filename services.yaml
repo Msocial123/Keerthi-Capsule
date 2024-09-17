@@ -11,16 +11,3 @@ spec:
     targetPort: 3003     # The port exposed in the container (as per your deployment)
     protocol: TCP
   type: LoadBalancer     # To expose the service externally
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mongo-service-keerthi   # Service for MongoDB
-spec:
-  selector:
-    app: node-app-deployment
-  ports:
-  - port: 27017          # Port exposed for MongoDB service
-    targetPort: 27017    # Port exposed in MongoDB container
-    protocol: TCP
-  clusterIP: None        # Use headless service for MongoDB to support direct pod access

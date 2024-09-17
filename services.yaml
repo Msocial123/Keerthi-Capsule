@@ -4,9 +4,9 @@ metadata:
   name: node-svc-event
 spec:
   selector:
-    app: node-app-deployemnt
+    app: event-org     # Correct selector to match deployment
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 3003
+    - protocol: TCP
+      port: 80         # External port for LoadBalancer
+      targetPort: 3003 # Port inside the container running your app
   type: LoadBalancer

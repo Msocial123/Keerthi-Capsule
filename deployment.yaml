@@ -6,11 +6,11 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: event-org
+      app: event-org  # Ensure the app label matches the service selector
   template:
     metadata:
       labels:
-        app: event-org
+        app: event-org  # Label for selector
     spec:
       containers:
       - name: evnt-cont
@@ -18,9 +18,9 @@ spec:
         ports:
           - containerPort: 3003
         env:
-         - name: MONGODB_URI
-           value: "mongodb://mongo-service:27017/eventDB"
+          - name: MONGODB_URI
+            value: "mongodb://mongo-service:27017/eventDB"
       - name: casestudy
         image: mongo:latest
         ports:
-           - containerPort: 27017
+          - containerPort: 27017

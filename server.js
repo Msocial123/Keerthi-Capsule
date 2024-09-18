@@ -133,7 +133,7 @@ app.post('/', async (req, res) => {
             body {
               margin: 0;
               padding: 0;
-              background: url('images/15.jpg');
+              background: url('15.jpg');
               background-size: cover;
               display: flex; 
               align-items: center;
